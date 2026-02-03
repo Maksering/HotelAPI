@@ -1,6 +1,7 @@
 package com.example.hotelapi.controller.impl;
 
 import com.example.hotelapi.controller.HotelController;
+import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
 import com.example.hotelapi.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,11 @@ public class HotelControllerImpl implements HotelController {
     public ResponseEntity<List<HotelSummaryDto>> getAllHotels() {
         List<HotelSummaryDto> hotels = hotelService.getAllHotels();
         return ResponseEntity.ok(hotels);
+    }
+
+    @Override
+    public ResponseEntity<HotelDto> getHotelById(long id) {
+        HotelDto hotel = hotelService.getHotelById(id);
+        return ResponseEntity.ok(hotel);
     }
 }

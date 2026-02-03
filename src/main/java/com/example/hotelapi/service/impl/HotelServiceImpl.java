@@ -1,6 +1,8 @@
 package com.example.hotelapi.service.impl;
 
+import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
+import com.example.hotelapi.exception.HotelNotFoundException;
 import com.example.hotelapi.mapper.HotelMapper;
 import com.example.hotelapi.repository.HotelRepository;
 import com.example.hotelapi.service.HotelService;
@@ -19,7 +21,14 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public List<HotelSummaryDto> getAllHotels() {
         return hotelRepository.findAll().stream()
-                .map(hotelMapper::toSummaryDto)
+                .map(hotelMapper::toHotelSummaryDto)
                 .toList();
+    }
+
+    @Override
+    public HotelDto getHotelById(long id) {
+        return hotelMapper.toHotelDto(
+                hotelRepository.findById(id).orElseThrow(() -> new HotelNotFoundException(id))
+        );
     }
 }
