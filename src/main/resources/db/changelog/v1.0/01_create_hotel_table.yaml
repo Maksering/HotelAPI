@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_hotels_table
+      author: Maksering
+      changes:
+        - createTable:
+            tableName: hotels
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: brand
+                  type: VARCHAR(255)
+              - column:
+                  name: house_number
+                  type: VARCHAR(10)
+              - column:
+                  name: street
+                  type: VARCHAR(255)
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: country
+                  type: VARCHAR(255)
+              - column:
+                  name: post_code
+                  type: VARCHAR(20)
+              - column:
+                  name: phone
+                  type: VARCHAR(20)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: check_in_time
+                  type: TIME
+              - column:
+                  name: check_out_time
+                  type: TIME
