@@ -1,6 +1,7 @@
 package com.example.hotelapi.controller.impl;
 
 import com.example.hotelapi.controller.HotelController;
+import com.example.hotelapi.dto.CreateHotelDto;
 import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
 import com.example.hotelapi.service.HotelService;
@@ -30,5 +31,11 @@ public class HotelControllerImpl implements HotelController {
     public ResponseEntity<HotelDto> getHotelById(long id) {
         HotelDto hotel = hotelService.getHotelById(id);
         return ResponseEntity.ok(hotel);
+    }
+
+    @Override
+    public ResponseEntity<HotelSummaryDto> createHotel(CreateHotelDto createHotelDto) {
+        HotelSummaryDto hotelSummary = hotelService.createHotel(createHotelDto);
+        return ResponseEntity.ok(hotelSummary);
     }
 }

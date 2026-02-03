@@ -48,7 +48,11 @@ public class HotelMapper {
 
         HotelArrivalTime hotelArrivalTime = HotelArrivalTime.builder()
                 .checkIn(formatter.format(hotel.getCheckInTime()))
-                .checkOut(formatter.format(hotel.getCheckOutTime()))
+                .checkOut(
+                        hotel.getCheckOutTime() != null
+                                ? formatter.format(hotel.getCheckOutTime())
+                                : null
+                )
                 .build();
 
         List<String> amenities = hotel.getAmenities().stream()

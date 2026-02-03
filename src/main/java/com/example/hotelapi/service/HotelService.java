@@ -1,5 +1,6 @@
 package com.example.hotelapi.service;
 
+import com.example.hotelapi.dto.CreateHotelDto;
 import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
 
@@ -10,5 +11,7 @@ public interface HotelService {
     List<HotelSummaryDto> getAllHotels();
 
     HotelDto getHotelById(long id);
+
+    HotelSummaryDto createHotel(CreateHotelDto createHotelDto);
 
 }

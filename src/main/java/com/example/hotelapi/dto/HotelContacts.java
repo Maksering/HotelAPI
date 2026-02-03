@@ -1,5 +1,7 @@
 package com.example.hotelapi.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HotelContacts {
+    @NotBlank(message = "Phone is required")
     private String phone;
+    @NotBlank(message = "Email is required")
+    @Email
     private String email;
 }
