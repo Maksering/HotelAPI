@@ -45,4 +45,12 @@ public class HotelControllerImpl implements HotelController {
         return ResponseEntity.noContent().build();
     }
 
+    @Override
+    public ResponseEntity<List<HotelSummaryDto>> searchHotels(
+            String name, String brand, String city, String country, List<String> amenities
+    ) {
+        List<HotelSummaryDto> hotels = hotelService.searchHotels(name,brand,city,country,amenities);
+        return ResponseEntity.ok(hotels);
+    }
+
 }

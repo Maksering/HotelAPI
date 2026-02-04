@@ -16,4 +16,6 @@ public interface HotelService {
 
     void addAmenitiesToHotel(long id, List<String> amenities);
 
+    List<HotelSummaryDto> searchHotels(String name, String brand, String city, String country, List<String> amenities);
+
 }

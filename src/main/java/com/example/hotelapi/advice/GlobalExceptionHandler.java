@@ -1,4 +1,4 @@
-package com.example.hotelapi.controller.advice;
+package com.example.hotelapi.advice;
 
 import com.example.hotelapi.exception.HotelNotFoundException;
 import org.springframework.http.HttpStatus;

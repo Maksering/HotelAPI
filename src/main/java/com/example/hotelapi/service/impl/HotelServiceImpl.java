@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,6 +83,50 @@ public class HotelServiceImpl implements HotelService {
 
         hotel.getAmenities().addAll(amenities);
         hotelRepository.save(hotel);
+    }
+
+    @Override
+    public List<HotelSummaryDto> searchHotels(String name, String brand, String city, String country, List<String> amenities) {
+        List<Hotel> hotels;
+
+        if (amenities != null && !amenities.isEmpty()) {
+
+            hotels = hotelRepository.findByAmenities(
+                    amenities.stream()
+                    .map(String::toLowerCase)
+                    .toList()
+            );
+
+            if (name != null || brand != null || city != null || country != null) {
+                hotels = hotels.stream()
+                        .filter(hotel -> {
+                            boolean correctHotel = true;
+                            if (name != null && !name.isEmpty()
+                                    && !hotel.getName().toLowerCase().contains(name.toLowerCase())) {
+                                correctHotel = false;
+                            }
+                            if (brand != null && !brand.isEmpty()
+                                    && !hotel.getBrand().toLowerCase().contains(brand.toLowerCase())) {
+                                correctHotel = false;
+                            }
+                            if (city != null && !city.isEmpty()
+                                    && !hotel.getAddress().getCity().toLowerCase().contains(city.toLowerCase())) {
+                                correctHotel = false;
+                            }
+                            if (country != null && !country.isEmpty()
+                                    && !hotel.getAddress().getCountry().toLowerCase().contains(country.toLowerCase())) {
+                                correctHotel = false;
+                            }
+                            return correctHotel;
+                        })
+                        .toList();
+            }
+        } else {
+            hotels = hotelRepository.searchHotels(name, brand, city, country);
+        }
+        return hotels.stream()
+                .map(hotelMapper::toHotelSummaryDto)
+                .toList();
     }
 
 }
