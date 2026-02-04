@@ -1,5 +1,6 @@
-package com.example.hotelapi.exception;
+package com.example.hotelapi.controller.advice;
 
+import com.example.hotelapi.exception.HotelNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

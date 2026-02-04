@@ -27,6 +27,15 @@ public interface HotelController {
     ResponseEntity<List<HotelSummaryDto>> getAllHotels();
 
     /**
+     * Создать отель
+     *
+     */
+    @PostMapping("/hotels")
+    ResponseEntity<HotelSummaryDto> createHotel(
+            @Valid @RequestBody CreateHotelDto createHotelDto
+    );
+
+    /**
      * Вывести расширенную информацию по конкретному отелю
      *
      */
@@ -35,9 +44,14 @@ public interface HotelController {
             @PathVariable long id
     );
 
-    @PostMapping("/hotels")
-    ResponseEntity<HotelSummaryDto> createHotel(
-            @Valid @RequestBody CreateHotelDto createHotelDto
+    /**
+     * Добавить удобства для отеля
+     *
+     */
+    @PostMapping("/hotels/{id}/amenities")
+    ResponseEntity<Void> addAmenitiesToHotel(
+            @PathVariable long id,
+            @RequestBody List<String> amenities
     );
 
 }

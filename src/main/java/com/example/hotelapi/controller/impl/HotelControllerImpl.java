@@ -28,14 +28,21 @@ public class HotelControllerImpl implements HotelController {
     }
 
     @Override
+    public ResponseEntity<HotelSummaryDto> createHotel(CreateHotelDto createHotelDto) {
+        HotelSummaryDto hotelSummary = hotelService.createHotel(createHotelDto);
+        return ResponseEntity.ok(hotelSummary);
+    }
+
+    @Override
     public ResponseEntity<HotelDto> getHotelById(long id) {
         HotelDto hotel = hotelService.getHotelById(id);
         return ResponseEntity.ok(hotel);
     }
 
     @Override
-    public ResponseEntity<HotelSummaryDto> createHotel(CreateHotelDto createHotelDto) {
-        HotelSummaryDto hotelSummary = hotelService.createHotel(createHotelDto);
-        return ResponseEntity.ok(hotelSummary);
+    public ResponseEntity<Void> addAmenitiesToHotel(long id, List<String> amenities) {
+        hotelService.addAmenitiesToHotel(id,amenities);
+        return ResponseEntity.noContent().build();
     }
+
 }
