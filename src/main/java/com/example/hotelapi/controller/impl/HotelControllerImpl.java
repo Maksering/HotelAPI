@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HotelControllerImpl implements HotelController {
@@ -51,6 +52,12 @@ public class HotelControllerImpl implements HotelController {
     ) {
         List<HotelSummaryDto> hotels = hotelService.searchHotels(name,brand,city,country,amenities);
         return ResponseEntity.ok(hotels);
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Long>> getHistogram(String param) {
+        Map<String, Long> histogram = hotelService.getHistogram(param);
+        return ResponseEntity.ok(histogram);
     }
 
 }

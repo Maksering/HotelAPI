@@ -1,11 +1,14 @@
 package com.example.hotelapi.service.impl;
 
 import com.example.hotelapi.dto.CreateHotelDto;
+import com.example.hotelapi.dto.HistogramElementDto;
 import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
 import com.example.hotelapi.entity.Amenity;
 import com.example.hotelapi.entity.Hotel;
+import com.example.hotelapi.enums.HistogramParam;
 import com.example.hotelapi.exception.HotelNotFoundException;
+import com.example.hotelapi.exception.InvalidHistogramParamException;
 import com.example.hotelapi.mapper.HotelMapper;
 import com.example.hotelapi.repository.AmenityRepository;
 import com.example.hotelapi.repository.HotelRepository;
@@ -15,8 +18,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.example.hotelapi.enums.HistogramParam.AMENITIES;
+import static com.example.hotelapi.enums.HistogramParam.BRAND;
+import static com.example.hotelapi.enums.HistogramParam.CITY;
+import static com.example.hotelapi.enums.HistogramParam.COUNTRY;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +79,7 @@ public class HotelServiceImpl implements HotelService {
 
         Set<Amenity> amenities = amenitiesList.stream()
                 .map(name -> {
-                            Amenity amenity = amenityRepository.findByName(name);
+                            Amenity amenity = amenityRepository.findByNameIgnoreCase(name);
                             if (amenity == null) {
                                 amenity = new Amenity();
                                 amenity.setName(name);
@@ -86,17 +95,16 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelSummaryDto> searchHotels(String name, String brand, String city, String country, List<String> amenities) {
+    public List<HotelSummaryDto> searchHotels(
+            String name, String brand, String city, String country, List<String> amenities
+    ) {
         List<Hotel> hotels;
 
         if (amenities != null && !amenities.isEmpty()) {
-
-            hotels = hotelRepository.findByAmenities(
-                    amenities.stream()
+            List<String> amenitiesLower = amenities.stream()
                     .map(String::toLowerCase)
-                    .toList()
-            );
-
+                    .toList();
+            hotels = hotelRepository.findByAmenitiesAllMatch(amenitiesLower, amenitiesLower.size());
             if (name != null || brand != null || city != null || country != null) {
                 hotels = hotels.stream()
                         .filter(hotel -> {
@@ -127,6 +135,23 @@ public class HotelServiceImpl implements HotelService {
         return hotels.stream()
                 .map(hotelMapper::toHotelSummaryDto)
                 .toList();
+    }
+
+    @Override
+    public Map<String, Long> getHistogram(String param) {
+        HistogramParam histogramParam = HistogramParam.fromValue(param);
+        if (histogramParam == null) {
+            throw new InvalidHistogramParamException(param);
+        }
+
+        List<HistogramElementDto> results = switch (histogramParam) {
+            case BRAND -> hotelRepository.countByBrand();
+            case CITY -> hotelRepository.countByCity();
+            case COUNTRY -> hotelRepository.countByCountry();
+            case AMENITIES -> hotelRepository.countByAmenity();
+        };
+
+        return hotelMapper.toHistgoramMap(results);
     }
 
 }

@@ -5,6 +5,7 @@ import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HotelService {
 
@@ -18,4 +19,5 @@ public interface HotelService {
 
     List<HotelSummaryDto> searchHotels(String name, String brand, String city, String country, List<String> amenities);
 
+    Map<String, Long> getHistogram(String param);
 }

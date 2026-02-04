@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Validated
 @RequestMapping("/property-view")
@@ -62,6 +63,11 @@ public interface HotelController {
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String country,
             @RequestParam(required = false) List<String> amenitites
+    );
+
+    @GetMapping("/histogram/{param}")
+    ResponseEntity<Map<String,Long>> getHistogram(
+            @PathVariable String param
     );
 
 }

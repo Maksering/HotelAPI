@@ -1,5 +1,6 @@
 package com.example.hotelapi.mapper;
 
+import com.example.hotelapi.dto.HistogramElementDto;
 import com.example.hotelapi.dto.HotelArrivalTime;
 import com.example.hotelapi.dto.HotelContacts;
 import com.example.hotelapi.dto.HotelDto;
@@ -10,7 +11,9 @@ import com.example.hotelapi.entity.Hotel;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -69,5 +72,13 @@ public class HotelMapper {
                 .arrivalTime(hotelArrivalTime)
                 .amenities(amenities)
                 .build();
+    }
+
+    public Map<String, Long> toHistgoramMap(List<HistogramElementDto> elements) {
+        Map<String, Long> histogram = new LinkedHashMap<>();
+        for (HistogramElementDto element : elements) {
+            histogram.put(element.getName(), element.getCount());
+        }
+        return histogram;
     }
 }
