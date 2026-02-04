@@ -66,7 +66,7 @@ public interface HotelController {
     );
 
     @GetMapping("/histogram/{param}")
-    ResponseEntity<Map<String,Long>> getHistogram(
+    ResponseEntity<Map<String, Long>> getHistogram(
             @PathVariable String param
     );
 

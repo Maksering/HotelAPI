@@ -22,11 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.hotelapi.enums.HistogramParam.AMENITIES;
-import static com.example.hotelapi.enums.HistogramParam.BRAND;
-import static com.example.hotelapi.enums.HistogramParam.CITY;
-import static com.example.hotelapi.enums.HistogramParam.COUNTRY;
-
 @Service
 @RequiredArgsConstructor
 public class HotelServiceImpl implements HotelService {
@@ -151,7 +146,6 @@ public class HotelServiceImpl implements HotelService {
             case AMENITIES -> hotelRepository.countByAmenity();
         };
 
-        return hotelMapper.toHistgoramMap(results);
+        return hotelMapper.toHistogramMap(results);
     }
-
 }

@@ -42,7 +42,7 @@ public class HotelControllerImpl implements HotelController {
 
     @Override
     public ResponseEntity<Void> addAmenitiesToHotel(long id, List<String> amenities) {
-        hotelService.addAmenitiesToHotel(id,amenities);
+        hotelService.addAmenitiesToHotel(id, amenities);
         return ResponseEntity.noContent().build();
     }
 
@@ -50,7 +50,7 @@ public class HotelControllerImpl implements HotelController {
     public ResponseEntity<List<HotelSummaryDto>> searchHotels(
             String name, String brand, String city, String country, List<String> amenities
     ) {
-        List<HotelSummaryDto> hotels = hotelService.searchHotels(name,brand,city,country,amenities);
+        List<HotelSummaryDto> hotels = hotelService.searchHotels(name, brand, city, country, amenities);
         return ResponseEntity.ok(hotels);
     }
 

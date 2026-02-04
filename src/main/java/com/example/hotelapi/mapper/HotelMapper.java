@@ -74,7 +74,7 @@ public class HotelMapper {
                 .build();
     }
 
-    public Map<String, Long> toHistgoramMap(List<HistogramElementDto> elements) {
+    public Map<String, Long> toHistogramMap(List<HistogramElementDto> elements) {
         Map<String, Long> histogram = new LinkedHashMap<>();
         for (HistogramElementDto element : elements) {
             histogram.put(element.getName(), element.getCount());
