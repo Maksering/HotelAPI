@@ -4,9 +4,7 @@ import com.example.hotelapi.controller.impl.HotelControllerImpl;
 import com.example.hotelapi.dto.CreateHotelDto;
 import com.example.hotelapi.dto.HotelDto;
 import com.example.hotelapi.dto.HotelSummaryDto;
-import com.example.hotelapi.exception.HotelNotFoundException;
 import com.example.hotelapi.service.HotelService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -99,7 +97,7 @@ public class HotelControllerImplTest {
     }
 
     @Test
-    void searchHotels_WithValidParameters_ShouldReturnMatchingHotels() {
+    void searchHotels_WithValidParams_ShouldReturnMatchingHotels() {
         String name = "Test Hotel";
         String brand = "Test Brand";
         String city = "New York";
@@ -125,7 +123,7 @@ public class HotelControllerImplTest {
     }
 
     @Test
-    void searchHotels_WithNullAndNonNullParameters_ShouldCallServiceCorrectly() {
+    void searchHotels_WithNullAndNonNullParams_ShouldCallServiceCorrectly() {
         String name = "Test Hotel";
         String brand = null;
         String city = "New York";

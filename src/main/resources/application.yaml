@@ -22,14 +22,8 @@ spring:
     enabled: true
     change-log: classpath:/db/changelog/database_changelog-master.yaml
 
-
-
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    operationsSorter: alpha
-    tagsSorter: alpha
-    disable-swagger-default-url: true
-
   api-docs:
-    enabled: true
+    path: /v3/apic-docs
